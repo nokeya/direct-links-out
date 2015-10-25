@@ -39,6 +39,16 @@
 // @match       https://vk.com/*
 // @match       http://m.vk.com/*
 // @match       https://m.vk.com/*
+//ok
+// @include     http://ok.ru/*
+// @include     https://ok.ru/*
+// @include     http://*.ok.ru/*
+// @include     https://*.ok.ru/*
+// @match       http://ok.ru/*
+// @match       https://ok.ru/*
+// @match       http://*.ok.ru/*
+// @match       https://*.ok.ru/*
+//
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
 // @version     1.2
@@ -73,6 +83,9 @@ function makeDirect() {
     }
     else if (window.location.hostname.indexOf('vk') != -1) {
         rewriteLinks('away.php?to=', '&post=');
+    }
+    else if (window.location.hostname.indexOf('ok') != -1) {
+        rewriteLinks('st.link=', '&st.name=');
     }
 }
 document.addEventListener('DOMNodeInserted', makeDirect, true);
