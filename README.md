@@ -6,3 +6,4 @@ __Install:__ https://openuserjs.org/scripts/nokeya/Direct_links_out
 Currently supported (with subdomains):  
 - deviantart.com
 - joyreactor.cc
+- vk.com

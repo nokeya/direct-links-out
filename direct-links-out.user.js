@@ -30,9 +30,18 @@
 // @match       https://*.joyreactor.cc/*
 // @match       http://*.reactor.cc/*
 // @match       https://*.reactor.cc/*
+//vk
+// @include     http://vk.com/*
+// @include     https://vk.com/*
+// @include     http://m.vk.com/*
+// @include     https://m.vk.com/*
+// @match       http://vk.com/*
+// @match       https://vk.com/*
+// @match       http://m.vk.com/*
+// @match       https://m.vk.com/*
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
-// @version     1.0
+// @version     1.1
 // @grant       none
 // ==/UserScript==
 function rewriteLinks(anchor)
@@ -53,6 +62,9 @@ function makeDirect() {
   }
   else if (window.location.hostname.indexOf('reactor') != - 1) {
     rewriteLinks('redirect?url=');
+  }
+  else if (window.location.hostname.indexOf('vk') != - 1) {
+    rewriteLinks('away.php?to=');
   }
 }
 document.addEventListener('DOMNodeInserted', makeDirect, true);
