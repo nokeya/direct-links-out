@@ -41,31 +41,39 @@
 // @match       https://m.vk.com/*
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
-// @version     1.1
+// @version     1.2
 // @grant       none
 // ==/UserScript==
-function rewriteLinks(anchor)
+function rewriteLinks(anchor, after)
 {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; ++i)
-  {
-    var ndx = links[i].href.indexOf(anchor);
-    if (ndx != - 1)
+    var links = document.getElementsByTagName('a');
+    for (var i = 0; i < links.length; ++i)
     {
-      links[i].href = unescape(links[i].href.substring(ndx + anchor.length));
+        var ndx = links[i].href.indexOf(anchor);
+        if (ndx != -1)
+        {
+            links[i].href = unescape(links[i].href.substring(ndx + anchor.length));
+            if (typeof after !== 'undefined')
+            {
+                ndx = links[i].href.indexOf(after);
+                if (ndx != -1)
+                {
+                    links[i].href = links[i].href.substring(0, ndx);
+                }
+            }
+        }
     }
-  }
 }
 function makeDirect() {
-  if (window.location.hostname.indexOf('deviantart') != - 1) {
-    rewriteLinks('outgoing?');
-  }
-  else if (window.location.hostname.indexOf('reactor') != - 1) {
-    rewriteLinks('redirect?url=');
-  }
-  else if (window.location.hostname.indexOf('vk') != - 1) {
-    rewriteLinks('away.php?to=');
-  }
+    if (window.location.hostname.indexOf('deviantart') != -1) {
+        rewriteLinks('outgoing?');
+    }
+    else if (window.location.hostname.indexOf('reactor') != -1) {
+        rewriteLinks('redirect?url=');
+    }
+    else if (window.location.hostname.indexOf('vk') != -1) {
+        rewriteLinks('away.php?to=', '&post=');
+    }
 }
 document.addEventListener('DOMNodeInserted', makeDirect, true);
 makeDirect();
