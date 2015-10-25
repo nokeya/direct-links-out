@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name        Direct links out
 // @name:ru     Прямые ссылки наружу
-// @description Removes all "You are leaving our site" stuff from links in social networks
-// @description:ru Убирает "Бла-бла-бла, Вы покидаете наш сайт" из ссылок наружу из соц. сетей
+// @description Removes all "You are leaving our site" and redirection stuff from links in social networks
+// @description:ru Убирает "Бла-бла-бла, Вы покидаете наш сайт" и переадресации из ссылок наружу из соц. сетей
 // @namespace   https://github.com/nokeya
 //deviantart
 // @include     http://deviantart.com/*
@@ -66,29 +66,44 @@
 // @match       https://facebook.com/*
 // @match       http://*.facebook.com/*
 // @match       https://*.facebook.com/*
+//twitter
+// @include     http://twitter.com/*
+// @include     https://twitter.com/*
+// @include     http://*.twitter.com/*
+// @include     https://*.twitter.com/*
+// @match       http://twitter.com/*
+// @match       https://twitter.com/*
+// @match       http://*.twitter.com/*
+// @match       https://*.twitter.com/*
 //
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
-// @version     1.3
+// @version     1.4
 // @grant       none
 // ==/UserScript==
 function rewriteLinks(anchor, after)
 {
     var links = document.getElementsByTagName('a');
-    for (var i = 0; i < links.length; ++i)
-    {
+    for (var i = 0; i < links.length; ++i){
         var ndx = links[i].href.indexOf(anchor);
-        if (ndx != -1)
-        {
+        if (ndx != -1){
             links[i].href = unescape(links[i].href.substring(ndx + anchor.length));
-            if (typeof after !== 'undefined')
-            {
+            if (typeof after !== 'undefined'){
                 ndx = links[i].href.indexOf(after);
-                if (ndx != -1)
-                {
+                if (ndx != -1){
                     links[i].href = links[i].href.substring(0, ndx);
                 }
             }
+        }
+    }
+}
+function rewriteLinksTwitter(){
+    var links = document.getElementsByClassName('twitter-timeline-link');
+    for (var i = 0; i < links.length; ++i)
+    {
+        if (links[i].hasAttribute('data-expanded-url')){
+            links[i].href = links[i].getAttribute('data-expanded-url');
+            links[i].removeAttribute('data-expanded-url');
         }
     }
 }
@@ -103,6 +118,9 @@ function makeDirect() {
     if (window.location.hostname.indexOf('facebook') != -1) {
         rewriteLinks('l.php?u=', '&h=');
         removeMouseIntercept();
+    }
+    if (window.location.hostname.indexOf('twitter') != -1) {
+        rewriteLinksTwitter();
     }
     else if (window.location.hostname.indexOf('vk') != -1) {
         rewriteLinks('away.php?to=', '&post=');

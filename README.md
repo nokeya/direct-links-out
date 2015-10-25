@@ -5,6 +5,7 @@ __Install:__ https://openuserjs.org/scripts/nokeya/Direct_links_out
 
 Currently supported (with subdomains):  
 - facebook.com
+- twitter.com
 - vk.com
 - ok.ru
 - deviantart.com
