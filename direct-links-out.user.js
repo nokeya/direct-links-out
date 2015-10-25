@@ -51,12 +51,25 @@
 //steam
 // @include     http://steamcommunity.com/*
 // @include     https://steamcommunity.com/*
+// @include     http://*.steamcommunity.com/*
+// @include     https://*.steamcommunity.com/*
 // @match       http://steamcommunity.com/*
 // @match       https://steamcommunity.com/*
+// @match       http://*.steamcommunity.com/*
+// @match       https://*.steamcommunity.com/*
+//facebook
+// @include     http://facebook.com/*
+// @include     https://facebook.com/*
+// @include     http://*.facebook.com/*
+// @include     https://*.facebook.com/*
+// @match       http://facebook.com/*
+// @match       https://facebook.com/*
+// @match       http://*.facebook.com/*
+// @match       https://*.facebook.com/*
 //
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
-// @version     1.2
+// @version     1.3
 // @grant       none
 // ==/UserScript==
 function rewriteLinks(anchor, after)
@@ -79,18 +92,29 @@ function rewriteLinks(anchor, after)
         }
     }
 }
-function makeDirect() {
-    if (window.location.hostname.indexOf('deviantart') != -1) {
-        rewriteLinks('outgoing?');
+//TODO: find better solution
+function removeMouseIntercept(){
+    if (window.location.hostname.indexOf('facebook') != -1) {
+        LinkshimAsyncLink.swap = function() {};
+        LinkshimAsyncLink.referrer_log = function() {};
     }
-    else if (window.location.hostname.indexOf('reactor') != -1) {
-        rewriteLinks('redirect?url=');
+}
+function makeDirect() {
+    if (window.location.hostname.indexOf('facebook') != -1) {
+        rewriteLinks('l.php?u=', '&h=');
+        removeMouseIntercept();
     }
     else if (window.location.hostname.indexOf('vk') != -1) {
         rewriteLinks('away.php?to=', '&post=');
     }
     else if (window.location.hostname.indexOf('ok') != -1) {
         rewriteLinks('st.link=', '&st.name=');
+    }
+    else if (window.location.hostname.indexOf('deviantart') != -1) {
+        rewriteLinks('outgoing?');
+    }
+    else if (window.location.hostname.indexOf('reactor') != -1) {
+        rewriteLinks('redirect?url=');
     }
     else if (window.location.hostname.indexOf('steam') != -1) {
         rewriteLinks('linkfilter/?url=');
