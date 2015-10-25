@@ -49,10 +49,10 @@
 // @match       http://*.ok.ru/*
 // @match       https://*.ok.ru/*
 //steam
-// @include     http://steamcommunity.com
-// @include     https://steamcommunity.com
-// @match       http://steamcommunity.com
-// @match       https://steamcommunity.com
+// @include     http://steamcommunity.com/*
+// @include     https://steamcommunity.com/*
+// @match       http://steamcommunity.com/*
+// @match       https://steamcommunity.com/*
 //
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
