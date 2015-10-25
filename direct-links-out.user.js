@@ -48,6 +48,11 @@
 // @match       https://ok.ru/*
 // @match       http://*.ok.ru/*
 // @match       https://*.ok.ru/*
+//steam
+// @include     http://steamcommunity.com
+// @include     https://steamcommunity.com
+// @match       http://steamcommunity.com
+// @match       https://steamcommunity.com
 //
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
@@ -86,6 +91,9 @@ function makeDirect() {
     }
     else if (window.location.hostname.indexOf('ok') != -1) {
         rewriteLinks('st.link=', '&st.name=');
+    }
+    else if (window.location.hostname.indexOf('steam') != -1) {
+        rewriteLinks('linkfilter/?url=');
     }
 }
 document.addEventListener('DOMNodeInserted', makeDirect, true);

@@ -7,3 +7,5 @@ Currently supported (with subdomains):
 - deviantart.com
 - joyreactor.cc
 - vk.com
+- ok.ru
+- steamcommunity.com
