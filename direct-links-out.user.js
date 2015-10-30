@@ -85,7 +85,7 @@
     //
     var anchor;
     var after;
-    //
+    // determine anchors
     (function ()
     {
         if (window.location.hostname.indexOf('facebook') != -1) {
@@ -100,17 +100,13 @@
             anchor = 'st.link=';
             after = '&st.name=';
         }
-        else if (window.location.hostname.indexOf('deviantart') != -1) {
+        else if (window.location.hostname.indexOf('deviantart') != -1)
             anchor = 'outgoing?';
-        }
-        else if (window.location.hostname.indexOf('reactor') != -1) {
+        else if (window.location.hostname.indexOf('reactor') != -1)
             anchor = 'url=';
-        }
-        else if (window.location.hostname.indexOf('steam') != -1) {
+        else if (window.location.hostname.indexOf('steam') != -1)
             anchor = 'url=';
-        }
     })();
-
     // rewrite outgoing link (if needed)
     function rewriteLink(link)
     {
@@ -119,31 +115,33 @@
             link.href = unescape(link.href.substring(ndx + anchor.length));
             if (after){
                 ndx = link.href.indexOf(after);
-                if (ndx != -1){
+                if (ndx != -1)
                     link.href = link.href.substring(0, ndx);
-                }
             }
         }
     }
-
     // rewrites all links in document
     function rewriteAllLinks()
     {
-        var links = document.getElementsByTagName('a');
-        for (var i = 0; i < links.length; ++i){
-            rewriteLink(links[i]);
+        if (window.location.hostname.indexOf('twitter') != -1)
+            rewriteAllLinksTwitter();
+        else{
+            var links = document.getElementsByTagName('a');
+            for (var i = 0; i < links.length; ++i)
+                rewriteLink(links[i]);
         }
     }
-
-    function rewriteLinksTwitter(){
+    // rewrite twitter links
+    function rewriteLinkTwitter(link){
+        if (link.hasAttribute('data-expanded-url')){
+            link.href = link.getAttribute('data-expanded-url');
+            link.removeAttribute('data-expanded-url');
+        }
+    }
+    function rewriteAllLinksTwitter(){
         var links = document.getElementsByClassName('twitter-timeline-link');
         for (var i = 0; i < links.length; ++i)
-        {
-            if (links[i].hasAttribute('data-expanded-url')){
-                links[i].href = links[i].getAttribute('data-expanded-url');
-                links[i].removeAttribute('data-expanded-url');
-            }
-        }
+            rewriteLinkTwitter(links[i]);
     }
     //TODO: find better solution
     function removeMouseIntercept(){
@@ -152,17 +150,25 @@
             LinkshimAsyncLink.referrer_log = function() {};
         }
     }
-    function makeDirect() {
+    // rewrite new link from event
+    function makeDirect(link){
         if (window.location.hostname.indexOf('facebook') != -1) {
-            rewriteAllLinks();
+            rewriteLink(link);
             removeMouseIntercept();
         }
-        else if (window.location.hostname.indexOf('twitter') != -1) {
-            rewriteLinksTwitter();
-        }
+        else if (window.location.hostname.indexOf('twitter') != -1)
+            rewriteLinkTwitter(link);
         else
-            rewriteAllLinks();
+            rewriteLink(link);
     }
-    document.addEventListener('DOMNodeInserted', makeDirect, true);
-    makeDirect();
+    // rewrite all existing links and subscribe to changes
+    rewriteAllLinks();
+    document.addEventListener('DOMNodeInserted', function(event){
+        var node = event.target;
+        var all = node.getElementsByTagName('*');
+        for (var i = 0; i < all.length; ++i){
+            if (all[i].tagName === 'A')
+                makeDirect(all[i]);
+        }
+    }, false);
 })();
