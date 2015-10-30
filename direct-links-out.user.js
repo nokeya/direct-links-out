@@ -78,7 +78,7 @@
 //
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
-// @version     1.4
+// @version     1.5
 // @grant       none
 // ==/UserScript==
 function rewriteLinks(anchor, after)
@@ -123,7 +123,7 @@ function makeDirect() {
         rewriteLinksTwitter();
     }
     else if (window.location.hostname.indexOf('vk') != -1) {
-        rewriteLinks('away.php?to=', '&post=');
+        rewriteLinks('to=', '&post=');
     }
     else if (window.location.hostname.indexOf('ok') != -1) {
         rewriteLinks('st.link=', '&st.name=');
