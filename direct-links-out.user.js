@@ -81,62 +81,88 @@
 // @version     1.5
 // @grant       none
 // ==/UserScript==
-function rewriteLinks(anchor, after)
-{
-    var links = document.getElementsByTagName('a');
-    for (var i = 0; i < links.length; ++i){
-        var ndx = links[i].href.indexOf(anchor);
+(function() {
+    //
+    var anchor;
+    var after;
+    //
+    (function ()
+    {
+        if (window.location.hostname.indexOf('facebook') != -1) {
+            anchor = 'u=';
+            after = '&h=';
+        }
+        else if (window.location.hostname.indexOf('vk') != -1) {
+            anchor = 'to=';
+            after = '&post=';
+        }
+        else if (window.location.hostname.indexOf('ok') != -1) {
+            anchor = 'st.link=';
+            after = '&st.name=';
+        }
+        else if (window.location.hostname.indexOf('deviantart') != -1) {
+            anchor = 'outgoing?';
+        }
+        else if (window.location.hostname.indexOf('reactor') != -1) {
+            anchor = 'url=';
+        }
+        else if (window.location.hostname.indexOf('steam') != -1) {
+            anchor = 'url=';
+        }
+    })();
+
+    // rewrite outgoing link (if needed)
+    function rewriteLink(link)
+    {
+        var ndx = link.href.indexOf(anchor);
         if (ndx != -1){
-            links[i].href = unescape(links[i].href.substring(ndx + anchor.length));
-            if (typeof after !== 'undefined'){
-                ndx = links[i].href.indexOf(after);
+            link.href = unescape(link.href.substring(ndx + anchor.length));
+            if (after){
+                ndx = link.href.indexOf(after);
                 if (ndx != -1){
-                    links[i].href = links[i].href.substring(0, ndx);
+                    link.href = link.href.substring(0, ndx);
                 }
             }
         }
     }
-}
-function rewriteLinksTwitter(){
-    var links = document.getElementsByClassName('twitter-timeline-link');
-    for (var i = 0; i < links.length; ++i)
+
+    // rewrites all links in document
+    function rewriteAllLinks()
     {
-        if (links[i].hasAttribute('data-expanded-url')){
-            links[i].href = links[i].getAttribute('data-expanded-url');
-            links[i].removeAttribute('data-expanded-url');
+        var links = document.getElementsByTagName('a');
+        for (var i = 0; i < links.length; ++i){
+            rewriteLink(links[i]);
         }
     }
-}
-//TODO: find better solution
-function removeMouseIntercept(){
-    if (window.location.hostname.indexOf('facebook') != -1) {
-        LinkshimAsyncLink.swap = function() {};
-        LinkshimAsyncLink.referrer_log = function() {};
+
+    function rewriteLinksTwitter(){
+        var links = document.getElementsByClassName('twitter-timeline-link');
+        for (var i = 0; i < links.length; ++i)
+        {
+            if (links[i].hasAttribute('data-expanded-url')){
+                links[i].href = links[i].getAttribute('data-expanded-url');
+                links[i].removeAttribute('data-expanded-url');
+            }
+        }
     }
-}
-function makeDirect() {
-    if (window.location.hostname.indexOf('facebook') != -1) {
-        rewriteLinks('l.php?u=', '&h=');
-        removeMouseIntercept();
+    //TODO: find better solution
+    function removeMouseIntercept(){
+        if (window.location.hostname.indexOf('facebook') != -1) {
+            LinkshimAsyncLink.swap = function() {};
+            LinkshimAsyncLink.referrer_log = function() {};
+        }
     }
-    else if (window.location.hostname.indexOf('twitter') != -1) {
-        rewriteLinksTwitter();
+    function makeDirect() {
+        if (window.location.hostname.indexOf('facebook') != -1) {
+            rewriteAllLinks();
+            removeMouseIntercept();
+        }
+        else if (window.location.hostname.indexOf('twitter') != -1) {
+            rewriteLinksTwitter();
+        }
+        else
+            rewriteAllLinks();
     }
-    else if (window.location.hostname.indexOf('vk') != -1) {
-        rewriteLinks('to=', '&post=');
-    }
-    else if (window.location.hostname.indexOf('ok') != -1) {
-        rewriteLinks('st.link=', '&st.name=');
-    }
-    else if (window.location.hostname.indexOf('deviantart') != -1) {
-        rewriteLinks('outgoing?');
-    }
-    else if (window.location.hostname.indexOf('reactor') != -1) {
-        rewriteLinks('redirect?url=');
-    }
-    else if (window.location.hostname.indexOf('steam') != -1) {
-        rewriteLinks('linkfilter/?url=');
-    }
-}
-document.addEventListener('DOMNodeInserted', makeDirect, true);
-makeDirect();
+    document.addEventListener('DOMNodeInserted', makeDirect, true);
+    makeDirect();
+})();
