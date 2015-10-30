@@ -78,7 +78,7 @@
 //
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
-// @version     1.5
+// @version     2.0
 // @grant       none
 // ==/UserScript==
 (function() {
