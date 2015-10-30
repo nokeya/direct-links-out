@@ -119,7 +119,7 @@ function makeDirect() {
         rewriteLinks('l.php?u=', '&h=');
         removeMouseIntercept();
     }
-    if (window.location.hostname.indexOf('twitter') != -1) {
+    else if (window.location.hostname.indexOf('twitter') != -1) {
         rewriteLinksTwitter();
     }
     else if (window.location.hostname.indexOf('vk') != -1) {
