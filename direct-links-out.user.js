@@ -88,7 +88,7 @@
     var rewriteLink = function(){};
     var rewriteAll = function(){};
 
-    // rewrite link -  based on anchors
+    // simple rewrite link -  based on anchors
     function rewriteLinkSimple(link){
         var ndx = link.href.indexOf(anchor);
         if (ndx != -1){
@@ -106,7 +106,7 @@
             rewriteLink(links[i]);
     }
 
-    // rewrite twitter links
+    // twitter special
     function rewriteLinkTwitter(link){
         if (link.hasAttribute('data-expanded-url')){
             link.href = link.getAttribute('data-expanded-url');
@@ -119,21 +119,12 @@
             rewriteLinkTwitter(links[i]);
     }
 
+    //facebook special
     //TODO: find better solution
-    function removeMouseIntercept(){
-        if (window.location.hostname.indexOf('facebook') != -1) {
-            LinkshimAsyncLink.swap = function() {};
-            LinkshimAsyncLink.referrer_log = function() {};
-        }
-    }
-
-    // rewrite new link from event
-    function makeDirect(link){
-        if (window.location.hostname.indexOf('facebook') != -1) {
-            rewriteLink(link);
-            removeMouseIntercept();
-        }
-        rewriteLink(link);
+    function rewriteLinkFacebook(link){
+        LinkshimAsyncLink.swap = function() {};
+        LinkshimAsyncLink.referrer_log = function() {};
+        rewriteLinkSimple(link);
     }
 
     // determine anchors
@@ -145,6 +136,7 @@
         if (window.location.hostname.indexOf('facebook') != -1) {
             anchor = 'u=';
             after = '&h=';
+            rewriteLink = rewriteLinkFacebook;
         }
         else if (window.location.hostname.indexOf('vk') != -1) {
             anchor = 'to=';
@@ -173,7 +165,7 @@
         var all = node.getElementsByTagName('*');
         for (var i = 0; i < all.length; ++i){
             if (all[i].tagName === 'A')
-                makeDirect(all[i]);
+                rewriteLink(all[i]);
         }
     }, false);
 })();
