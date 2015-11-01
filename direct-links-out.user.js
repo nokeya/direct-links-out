@@ -164,10 +164,9 @@
         var node = event.target;
         if (node.tagName === 'A')
             rewriteLink(node);
-        var all = node.getElementsByTagName('*');
+        var all = node.getElementsByTagName('a');
         for (var i = 0; i < all.length; ++i){
-            if (all[i].tagName === 'A')
-                rewriteLink(all[i]);
+            rewriteLink(all[i]);
         }
     }, false);
 })();
