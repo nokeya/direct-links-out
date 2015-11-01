@@ -116,7 +116,7 @@
     function rewriteAllLinksTwitter(){
         var links = document.getElementsByClassName('twitter-timeline-link');
         for (var i = 0; i < links.length; ++i)
-            rewriteLinkTwitter(links[i]);
+            rewriteLink(links[i]);
     }
 
     //facebook special
@@ -162,6 +162,8 @@
     rewriteAll();
     document.addEventListener('DOMNodeInserted', function(event){
         var node = event.target;
+        if (node.tagName === 'A')
+            rewriteLink(node);
         var all = node.getElementsByTagName('*');
         for (var i = 0; i < all.length; ++i){
             if (all[i].tagName === 'A')
