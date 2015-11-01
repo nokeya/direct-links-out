@@ -5,76 +5,28 @@
 // @description:ru Убирает "Бла-бла-бла, Вы покидаете наш сайт" и переадресации из ссылок наружу из соц. сетей
 // @namespace   https://github.com/nokeya
 //deviantart
-// @include     http://deviantart.com/*
-// @include     https://deviantart.com/*
-// @include     http://*.deviantart.com/*
-// @include     https://*.deviantart.com/*
-// @match       http://deviantart.com/*
-// @match       https://deviantart.com/*
-// @match       http://*.deviantart.com/*
-// @match       https://*.deviantart.com/*
+// @match       *://deviantart.com/*
+// @match       *://*.deviantart.com/*
 //joyreactor
-// @include     http://joyreactor.cc/*
-// @include     https://joyreactor.cc/*
-// @include     http://reactor.cc/*
-// @include     https://reactor.cc/*
-// @include     http://*.joyreactor.cc/*
-// @include     https://*.joyreactor.cc/*
-// @include     http://*.reactor.cc/*
-// @include     https://*.reactor.cc/*
-// @match       http://joyreactor.cc/*
-// @match       https://joyreactor.cc/*
-// @match       http://reactor.cc/*
-// @match       https://reactor.cc/*
-// @match       http://*.joyreactor.cc/*
-// @match       https://*.joyreactor.cc/*
-// @match       http://*.reactor.cc/*
-// @match       https://*.reactor.cc/*
+// @match       *://joyreactor.cc/*
+// @match       *://*.joyreactor.cc/*
+// @match       *://reactor.cc/*
+// @match       *://*.reactor.cc/*
 //vk
-// @include     http://vk.com/*
-// @include     https://vk.com/*
-// @include     http://m.vk.com/*
-// @include     https://m.vk.com/*
-// @match       http://vk.com/*
-// @match       https://vk.com/*
-// @match       http://m.vk.com/*
-// @match       https://m.vk.com/*
+// @match       *://vk.com/*
+// @match       *://m.vk.com/*
 //ok
-// @include     http://ok.ru/*
-// @include     https://ok.ru/*
-// @include     http://*.ok.ru/*
-// @include     https://*.ok.ru/*
-// @match       http://ok.ru/*
-// @match       https://ok.ru/*
-// @match       http://*.ok.ru/*
-// @match       https://*.ok.ru/*
+// @match       *://ok.ru/*
+// @match       *://*.ok.ru/*
 //steam
-// @include     http://steamcommunity.com/*
-// @include     https://steamcommunity.com/*
-// @include     http://*.steamcommunity.com/*
-// @include     https://*.steamcommunity.com/*
-// @match       http://steamcommunity.com/*
-// @match       https://steamcommunity.com/*
-// @match       http://*.steamcommunity.com/*
-// @match       https://*.steamcommunity.com/*
-//facebook
-// @include     http://facebook.com/*
-// @include     https://facebook.com/*
-// @include     http://*.facebook.com/*
-// @include     https://*.facebook.com/*
-// @match       http://facebook.com/*
-// @match       https://facebook.com/*
-// @match       http://*.facebook.com/*
-// @match       https://*.facebook.com/*
+// @match       *://steamcommunity.com/*
+// @match       *://*.steamcommunity.com/*
+//fb
+// @match       *://facebook.com/*
+// @match       *://*.facebook.com/*
 //twitter
-// @include     http://twitter.com/*
-// @include     https://twitter.com/*
-// @include     http://*.twitter.com/*
-// @include     https://*.twitter.com/*
-// @match       http://twitter.com/*
-// @match       https://twitter.com/*
-// @match       http://*.twitter.com/*
-// @match       https://*.twitter.com/*
+// @match       *://twitter.com/*
+// @match       *://*.twitter.com/*
 //
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
