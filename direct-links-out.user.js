@@ -82,12 +82,66 @@
 // @grant       none
 // ==/UserScript==
 (function() {
-    //
+    // anchors and functions
     var anchor;
     var after;
+    var rewriteLink = function(){};
+    var rewriteAll = function(){};
+
+    // rewrite link -  based on anchors
+    function rewriteLinkSimple(link){
+        var ndx = link.href.indexOf(anchor);
+        if (ndx != -1){
+            link.href = unescape(link.href.substring(ndx + anchor.length));
+            if (after){
+                ndx = link.href.indexOf(after);
+                if (ndx != -1)
+                    link.href = link.href.substring(0, ndx);
+            }
+        }
+    }
+    function rewriteAllLinksSimple(){
+        var links = document.getElementsByTagName('a');
+        for (var i = 0; i < links.length; ++i)
+            rewriteLink(links[i]);
+    }
+
+    // rewrite twitter links
+    function rewriteLinkTwitter(link){
+        if (link.hasAttribute('data-expanded-url')){
+            link.href = link.getAttribute('data-expanded-url');
+            link.removeAttribute('data-expanded-url');
+        }
+    }
+    function rewriteAllLinksTwitter(){
+        var links = document.getElementsByClassName('twitter-timeline-link');
+        for (var i = 0; i < links.length; ++i)
+            rewriteLinkTwitter(links[i]);
+    }
+
+    //TODO: find better solution
+    function removeMouseIntercept(){
+        if (window.location.hostname.indexOf('facebook') != -1) {
+            LinkshimAsyncLink.swap = function() {};
+            LinkshimAsyncLink.referrer_log = function() {};
+        }
+    }
+
+    // rewrite new link from event
+    function makeDirect(link){
+        if (window.location.hostname.indexOf('facebook') != -1) {
+            rewriteLink(link);
+            removeMouseIntercept();
+        }
+        rewriteLink(link);
+    }
+
     // determine anchors
     (function ()
     {
+        rewriteLink = rewriteLinkSimple;
+        rewriteAll = rewriteAllLinksSimple;
+
         if (window.location.hostname.indexOf('facebook') != -1) {
             anchor = 'u=';
             after = '&h=';
@@ -106,63 +160,14 @@
             anchor = 'url=';
         else if (window.location.hostname.indexOf('steam') != -1)
             anchor = 'url=';
+        else if (window.location.hostname.indexOf('twitter') != -1){
+            rewriteLink = rewriteLinkTwitter;
+            rewriteAll = rewriteAllLinksTwitter;
+        }
     })();
-    // rewrite outgoing link (if needed)
-    function rewriteLink(link)
-    {
-        var ndx = link.href.indexOf(anchor);
-        if (ndx != -1){
-            link.href = unescape(link.href.substring(ndx + anchor.length));
-            if (after){
-                ndx = link.href.indexOf(after);
-                if (ndx != -1)
-                    link.href = link.href.substring(0, ndx);
-            }
-        }
-    }
-    // rewrites all links in document
-    function rewriteAllLinks()
-    {
-        if (window.location.hostname.indexOf('twitter') != -1)
-            rewriteAllLinksTwitter();
-        else{
-            var links = document.getElementsByTagName('a');
-            for (var i = 0; i < links.length; ++i)
-                rewriteLink(links[i]);
-        }
-    }
-    // rewrite twitter links
-    function rewriteLinkTwitter(link){
-        if (link.hasAttribute('data-expanded-url')){
-            link.href = link.getAttribute('data-expanded-url');
-            link.removeAttribute('data-expanded-url');
-        }
-    }
-    function rewriteAllLinksTwitter(){
-        var links = document.getElementsByClassName('twitter-timeline-link');
-        for (var i = 0; i < links.length; ++i)
-            rewriteLinkTwitter(links[i]);
-    }
-    //TODO: find better solution
-    function removeMouseIntercept(){
-        if (window.location.hostname.indexOf('facebook') != -1) {
-            LinkshimAsyncLink.swap = function() {};
-            LinkshimAsyncLink.referrer_log = function() {};
-        }
-    }
-    // rewrite new link from event
-    function makeDirect(link){
-        if (window.location.hostname.indexOf('facebook') != -1) {
-            rewriteLink(link);
-            removeMouseIntercept();
-        }
-        else if (window.location.hostname.indexOf('twitter') != -1)
-            rewriteLinkTwitter(link);
-        else
-            rewriteLink(link);
-    }
+
     // rewrite all existing links and subscribe to changes
-    rewriteAllLinks();
+    rewriteAll();
     document.addEventListener('DOMNodeInserted', function(event){
         var node = event.target;
         var all = node.getElementsByTagName('*');
