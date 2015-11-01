@@ -4,6 +4,10 @@
 // @description Removes all "You are leaving our site" and redirection stuff from links in social networks
 // @description:ru Убирает "Бла-бла-бла, Вы покидаете наш сайт" и переадресации из ссылок наружу из соц. сетей
 // @namespace   https://github.com/nokeya
+// @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
+// @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
+// @version     2.1
+// @grant       none
 //deviantart
 // @match       *://deviantart.com/*
 // @match       *://*.deviantart.com/*
@@ -27,11 +31,6 @@
 //twitter
 // @match       *://twitter.com/*
 // @match       *://*.twitter.com/*
-//
-// @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
-// @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
-// @version     2.1
-// @grant       none
 // ==/UserScript==
 (function() {
     // anchors and functions
