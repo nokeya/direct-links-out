@@ -115,9 +115,9 @@
         var node = event.target;
         if (node.tagName === 'A')
             rewriteLink(node);
-        var all = node.getElementsByTagName('a');
-        for (var i = 0; i < all.length; ++i){
-            rewriteLink(all[i]);
+        var links = node.getElementsByTagName('a');
+        for (var i = 0; i < links.length; ++i)
+            rewriteLink(links[i]);
         }
     }, false);
 })();
