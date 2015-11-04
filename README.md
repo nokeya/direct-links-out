@@ -11,3 +11,4 @@ Currently supported (with subdomains):
 - deviantart.com
 - joyreactor.cc
 - steamcommunity.com
+- 4pda.ru

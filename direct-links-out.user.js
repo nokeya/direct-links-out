@@ -6,7 +6,7 @@
 // @namespace   https://github.com/nokeya
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
-// @version     2.1
+// @version     2.2
 // @grant       none
 //deviantart
 // @match       *://deviantart.com/*
@@ -31,6 +31,9 @@
 //twitter
 // @match       *://twitter.com/*
 // @match       *://*.twitter.com/*
+//4pda
+// @match       *://4pda.ru/*
+// @match       *://*.4pda.ru/*
 // ==/UserScript==
 (function() {
     // anchors and functions
@@ -41,13 +44,15 @@
 
     // simple rewrite link -  based on anchors
     function rewriteLinkSimple(link){
-        var ndx = link.href.indexOf(anchor);
-        if (ndx != -1){
-            link.href = unescape(link.href.substring(ndx + anchor.length));
-            if (after){
-                ndx = link.href.indexOf(after);
-                if (ndx != -1)
-                    link.href = link.href.substring(0, ndx);
+        if (anchor){
+            var ndx = link.href.indexOf(anchor);
+            if (ndx != -1){
+                link.href = unescape(link.href.substring(ndx + anchor.length));
+                if (after){
+                    ndx = link.href.indexOf(after);
+                    if (ndx != -1)
+                        link.href = link.href.substring(0, ndx);
+                }
             }
         }
     }
@@ -78,32 +83,35 @@
         rewriteLinkSimple(link);
     }
 
-    // determine anchors
+    // determine anchors and functions
     (function ()
     {
         rewriteLink = rewriteLinkSimple;
         rewriteAll = rewriteAllLinksSimple;
 
-        if (window.location.hostname.indexOf('facebook') != -1) {
+        var loc = window.location.hostname;
+        if (loc.indexOf('facebook') != -1) {
             anchor = 'u=';
             after = '&h=';
             rewriteLink = rewriteLinkFacebook;
         }
-        else if (window.location.hostname.indexOf('vk') != -1) {
+        else if (loc.indexOf('vk') != -1) {
             anchor = 'to=';
             after = '&post=';
         }
-        else if (window.location.hostname.indexOf('ok') != -1) {
+        else if (loc.indexOf('ok') != -1) {
             anchor = 'st.link=';
             after = '&st.name=';
         }
-        else if (window.location.hostname.indexOf('deviantart') != -1)
+        else if (loc.indexOf('4pda') != -1)
+            anchor = 'go/?u=';
+        else if (loc.indexOf('deviantart') != -1)
             anchor = 'outgoing?';
-        else if (window.location.hostname.indexOf('reactor') != -1)
+        else if (loc.indexOf('reactor') != -1)
             anchor = 'url=';
-        else if (window.location.hostname.indexOf('steam') != -1)
+        else if (loc.indexOf('steam') != -1)
             anchor = 'url=';
-        else if (window.location.hostname.indexOf('twitter') != -1){
+        else if (loc.indexOf('twitter') != -1){
             rewriteLink = rewriteLinkTwitter;
             rewriteAll = rewriteAllLinksTwitter;
         }
@@ -118,6 +126,5 @@
         var links = node.getElementsByTagName('a');
         for (var i = 0; i < links.length; ++i)
             rewriteLink(links[i]);
-        }
     }, false);
 })();
