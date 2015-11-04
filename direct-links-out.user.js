@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name        Direct links out
 // @name:ru     Прямые ссылки наружу
-// @description Removes all "You are leaving our site" and redirection stuff from links in social networks
-// @description:ru Убирает "Бла-бла-бла, Вы покидаете наш сайт" и переадресации из ссылок наружу из соц. сетей
+// @description Removes all "You are leaving our site" and redirection stuff from links
+// @description:ru Убирает "Бла-бла-бла, Вы покидаете наш сайт" и переадресации из ссылок
 // @namespace   https://github.com/nokeya
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
