@@ -7,7 +7,7 @@
 // @author      nokeya
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
-// @version     2.2
+// @version     2.3
 // @grant       none
 //deviantart
 // @match       *://deviantart.com/*
@@ -22,10 +22,8 @@
 // @match       *://m.vk.com/*
 //ok
 // @match       *://ok.ru/*
-// @match       *://*.ok.ru/*
 //steam
 // @match       *://steamcommunity.com/*
-// @match       *://*.steamcommunity.com/*
 //fb
 // @match       *://facebook.com/*
 // @match       *://*.facebook.com/*
@@ -34,7 +32,11 @@
 // @match       *://*.twitter.com/*
 //4pda
 // @match       *://4pda.ru/*
-// @match       *://*.4pda.ru/*
+//kickass
+// @match       *://kat.cr/*
+// @match       *://kickassto.co/*
+// @match       *://katproxy.is/*
+// @match       *://thekat.tv/*
 // ==/UserScript==
 (function() {
     // anchors and functions
@@ -76,6 +78,15 @@
             rewriteLink(links[i]);
     }
 
+    // kickass special
+    function rewriteLinkKickass(link){
+        var ndx = link.href.indexOf(anchor);
+        if (ndx != -1){
+            link.href = windows.atob(unescape(link.href.substring(ndx + anchor.length, link.href.length - 1)));
+            link.className = '';
+        }
+    }
+
     //facebook special
     //TODO: find better solution
     function rewriteLinkFacebook(link){
@@ -115,6 +126,11 @@
         else if (loc.indexOf('twitter') != -1){
             rewriteLink = rewriteLinkTwitter;
             rewriteAll = rewriteAllLinksTwitter;
+        }
+        else if (loc.indexOf('kat') != -1 || loc.indexOf('kickass') != -1)
+        {
+            anchor = 'confirm/url/';
+            rewriteLink = rewriteLinkKickass;
         }
     })();
 

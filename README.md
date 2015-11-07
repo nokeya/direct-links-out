@@ -12,3 +12,4 @@ Currently supported (with subdomains):
 - joyreactor.cc
 - steamcommunity.com
 - 4pda.ru
+- kat.cr(kickass torrents) (with mirrors)
