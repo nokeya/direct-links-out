@@ -104,14 +104,15 @@
     }
 
     //facebook special
-    //TODO: find better solution
     function rewriteLinkFacebook(link){
-        LinkshimAsyncLink.swap = function() {};
-        LinkshimAsyncLink.referrer_log = function() {};
+        if (link.onclick && /referrer_log/i.test(link.onclick)){
+            link.removeAttribute('onclick');
+            link.removeAttribute('onmouseover');
+        }
         rewriteLinkSimple(link);
     }
 
-    // determine anchors and functions
+    // determine anchors, functions and listeners
     (function ()
     {
         rewriteLink = rewriteLinkSimple;
@@ -122,6 +123,14 @@
             anchor = 'u=';
             after = '&h=';
             rewriteLink = rewriteLinkFacebook;
+
+            document.addEventListener('mouseover', function (event) {
+                var node = event.target;
+                if (node instanceof HTMLAnchorElement && node.onclick && /referrer_log/i.test(node.onclick)){
+                    node.removeAttribute('onclick');
+                    node.removeAttribute('onmouseover');
+                }
+            }, false);
         }
         else if (loc.indexOf('youtube') != -1) {
             anchor = 'redirect?q=';
@@ -153,16 +162,15 @@
             anchor = 'confirm/url/';
             rewriteLink = rewriteLinkKickass;
         }
-    })();
 
-    // rewrite all existing links and subscribe to changes
+        document.addEventListener('DOMNodeInserted', function(event){
+            var node = event.target;
+            if (node instanceof HTMLAnchorElement)
+                rewriteLink(node);
+            var links = node.getElementsByTagName('a');
+            for (var i = 0; i < links.length; ++i)
+                rewriteLink(links[i]);
+        }, false);
+    })();
     rewriteAll();
-    document.addEventListener('DOMNodeInserted', function(event){
-        var node = event.target;
-        if (node.tagName === 'A')
-            rewriteLink(node);
-        var links = node.getElementsByTagName('a');
-        for (var i = 0; i < links.length; ++i)
-            rewriteLink(links[i]);
-    }, false);
 })();
