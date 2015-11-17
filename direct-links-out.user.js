@@ -92,20 +92,20 @@
     function rewriteLinkKickass(link){
         var ndx = link.href.indexOf(anchor);
         if (ndx != -1){
-            link.href = windows.atob(unescape(link.href.substring(ndx + anchor.length, link.href.length - 1)));
+            link.href = window.atob(unescape(link.href.substring(ndx + anchor.length, link.href.length - 1)));
             link.className = '';
         }
     }
     // youtube special
     function rewriteLinkYoutube(link){
-        if (link.className.indexOf('redirect') != -1)
+        if (/redirect/i.test(link.className))
             link.setAttribute('data-redirect-href-updated', 'true');
         rewriteLinkSimple(link);
     }
 
     //facebook special
     function rewriteLinkFacebook(link){
-        if (link.onclick && /referrer_log/i.test(link.onclick)){
+        if (/referrer_log/i.test(link.onclick)){
             link.removeAttribute('onclick');
             link.removeAttribute('onmouseover');
         }
@@ -119,37 +119,37 @@
         rewriteAll = rewriteAllLinksSimple;
 
         var loc = window.location.hostname;
-        if (loc.indexOf('facebook') != -1) {
+        if (/facebook/i.test(loc)) {
             anchor = 'u=';
             after = '&h=';
             rewriteLink = rewriteLinkFacebook;
         }
-        else if (loc.indexOf('youtube') != -1) {
+        else if (/youtube/i.test(loc)) {
             anchor = 'redirect?q=';
             after = '&redir_token=';
             rewriteLink = rewriteLinkYoutube;
         }
-        else if (loc.indexOf('vk') != -1) {
+        else if (/vk/i.test(loc)) {
             anchor = 'to=';
             after = '&post=';
         }
-        else if (loc.indexOf('ok') != -1) {
+        else if (/ok/i.test(loc)) {
             anchor = 'st.link=';
             after = '&st.name=';
         }
-        else if (loc.indexOf('4pda') != -1)
+        else if (/4pda/i.test(loc))
             anchor = 'go/?u=';
-        else if (loc.indexOf('deviantart') != -1)
+        else if (/deviantart/i.test(loc))
             anchor = 'outgoing?';
-        else if (loc.indexOf('reactor') != -1)
+        else if (/reactor/i.test(loc))
             anchor = 'url=';
-        else if (loc.indexOf('steam') != -1)
+        else if (/steam/i.test(loc))
             anchor = 'url=';
-        else if (loc.indexOf('twitter') != -1){
+        else if (/twitter/i.test(loc)){
             rewriteLink = rewriteLinkTwitter;
             rewriteAll = rewriteAllLinksTwitter;
         }
-        else if (loc.indexOf('kat') != -1 || loc.indexOf('kickass') != -1)
+        else if (/(kat|kickass)/i.test(loc))
         {
             anchor = 'confirm/url/';
             rewriteLink = rewriteLinkKickass;
