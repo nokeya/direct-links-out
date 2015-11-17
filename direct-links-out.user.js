@@ -123,14 +123,6 @@
             anchor = 'u=';
             after = '&h=';
             rewriteLink = rewriteLinkFacebook;
-
-            document.addEventListener('mouseover', function (event) {
-                var node = event.target;
-                if (node instanceof HTMLAnchorElement && node.onclick && /referrer_log/i.test(node.onclick)){
-                    node.removeAttribute('onclick');
-                    node.removeAttribute('onmouseover');
-                }
-            }, false);
         }
         else if (loc.indexOf('youtube') != -1) {
             anchor = 'redirect?q=';
