@@ -22,11 +22,13 @@
 // @match       *://*.reactor.cc/*
 //vk
 // @match       *://vk.com/*
-// @match       *://m.vk.com/*
+// @match       *://*.vk.com/*
 //ok
 // @match       *://ok.ru/*
+// @match       *://*.ok.ru/*
 //steam
 // @match       *://steamcommunity.com/*
+// @match       *://*.steamcommunity.com/*
 //fb
 // @match       *://facebook.com/*
 // @match       *://*.facebook.com/*
@@ -35,11 +37,16 @@
 // @match       *://*.twitter.com/*
 //4pda
 // @match       *://4pda.ru/*
+// @match       *://*.4pda.ru/*
 //kickass
 // @match       *://kat.cr/*
 // @match       *://kickassto.co/*
 // @match       *://katproxy.is/*
 // @match       *://thekat.tv/*
+// @match       *://*.kat.cr/*
+// @match       *://*.kickassto.co/*
+// @match       *://*.katproxy.is/*
+// @match       *://*.thekat.tv/*
 // ==/UserScript==
 (function() {
     // anchors and functions
