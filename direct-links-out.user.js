@@ -9,6 +9,9 @@
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
 // @version     2.3
 // @grant       none
+//youtube
+// @match       *://youtube.com/*
+// @match       *://*.youtube.com/*
 //deviantart
 // @match       *://deviantart.com/*
 // @match       *://*.deviantart.com/*
@@ -86,6 +89,12 @@
             link.className = '';
         }
     }
+    // youtube special
+    function rewriteLinkYoutube(link){
+        if (link.className.indexOf('redirect') != -1)
+            link.setAttribute('data-redirect-href-updated', 'true');
+        rewriteLinkSimple(link);
+    }
 
     //facebook special
     //TODO: find better solution
@@ -106,6 +115,11 @@
             anchor = 'u=';
             after = '&h=';
             rewriteLink = rewriteLinkFacebook;
+        }
+        else if (loc.indexOf('youtube') != -1) {
+            anchor = 'redirect?q=';
+            after = '&redir_token=';
+            rewriteLink = rewriteLinkYoutube;
         }
         else if (loc.indexOf('vk') != -1) {
             anchor = 'to=';

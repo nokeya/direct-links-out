@@ -4,6 +4,7 @@ Userscript that removes all this "You are leaving our site" and other redirectio
 __Install:__ https://openuserjs.org/scripts/nokeya/Direct_links_out
 
 Currently supported (with subdomains):  
+- youtube.com
 - facebook.com
 - twitter.com
 - vk.com
