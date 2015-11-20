@@ -10,7 +10,7 @@ Currently supported (with subdomains):
 - vk.com
 - ok.ru
 - deviantart.com
-- joyreactor.cc
+- joyreactor.cc / joyreactor.com
 - steamcommunity.com
 - 4pda.ru
 - kat.cr(kickass torrents) (with mirrors)

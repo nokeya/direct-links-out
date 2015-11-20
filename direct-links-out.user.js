@@ -7,7 +7,7 @@
 // @author      nokeya
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
-// @version     2.5
+// @version     2.6
 // @grant       none
 //youtube
 // @match       *://youtube.com/*
@@ -20,6 +20,8 @@
 // @match       *://*.joyreactor.cc/*
 // @match       *://reactor.cc/*
 // @match       *://*.reactor.cc/*
+// @match       *://joyreactor.com/*
+// @match       *://*.joyreactor.com/*
 //vk
 // @match       *://vk.com/*
 // @match       *://*.vk.com/*
