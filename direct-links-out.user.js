@@ -9,6 +9,10 @@
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
 // @version     2.6
 // @grant       none
+//google
+// @include     *://google.*
+// @include     *://www.google.*
+// @include     *://encrypted.google.*
 //youtube
 // @match       *://youtube.com/*
 // @match       *://*.youtube.com/*
@@ -105,13 +109,19 @@
         rewriteLinkSimple(link);
     }
 
-    //facebook special
+    // facebook special
     function rewriteLinkFacebook(link){
         if (/referrer_log/i.test(link.onclick)){
             link.removeAttribute('onclick');
             link.removeAttribute('onmouseover');
         }
         rewriteLinkSimple(link);
+    }
+    // google special
+    function rewriteLinkGoogle(link){
+        if (link.hasAttribute('onmousedown')){
+            link.removeAttribute('onmousedown');
+        }
     }
 
     // determine anchors, functions and listeners
@@ -121,6 +131,9 @@
         rewriteAll = rewriteAllLinksSimple;
 
         var loc = window.location.hostname;
+        if (/google/i.test(loc)) {
+            rewriteLink = rewriteLinkGoogle;
+        }
         if (/facebook/i.test(loc)) {
             anchor = 'u=';
             after = '&h=';
