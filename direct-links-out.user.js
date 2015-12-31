@@ -58,11 +58,11 @@
     // anchors and functions
     var anchor;
     var after;
-    var rewriteLink = function(){};
-    var rewriteAll = function(){};
+    var rwLink = function(){};
+    var rwAll = function(){};
 
     // simple rewrite link -  based on anchors
-    function rewriteLinkSimple(link){
+    function rwSimple(link){
         if (anchor){
             var ndx = link.href.indexOf(anchor);
             if (ndx != -1){
@@ -75,27 +75,27 @@
             }
         }
     }
-    function rewriteAllLinksSimple(){
+    function rwaSimple(){
         var links = document.getElementsByTagName('a');
         for (var i = 0; i < links.length; ++i)
-            rewriteLink(links[i]);
+            rwLink(links[i]);
     }
 
     // twitter special
-    function rewriteLinkTwitter(link){
+    function rwTwitter(link){
         if (link.hasAttribute('data-expanded-url')){
             link.href = link.getAttribute('data-expanded-url');
             link.removeAttribute('data-expanded-url');
         }
     }
-    function rewriteAllLinksTwitter(){
+    function rwaTwitter(){
         var links = document.getElementsByClassName('twitter-timeline-link');
         for (var i = 0; i < links.length; ++i)
-            rewriteLink(links[i]);
+            rwLink(links[i]);
     }
 
     // kickass special
-    function rewriteLinkKickass(link){
+    function rwKickass(link){
         var ndx = link.href.indexOf(anchor);
         if (ndx != -1){
             link.href = window.atob(unescape(link.href.substring(ndx + anchor.length, link.href.length - 1)));
@@ -103,22 +103,22 @@
         }
     }
     // youtube special
-    function rewriteLinkYoutube(link){
+    function rwYoutube(link){
         if (/redirect/i.test(link.className))
             link.setAttribute('data-redirect-href-updated', 'true');
-        rewriteLinkSimple(link);
+        rwSimple(link);
     }
 
     // facebook special
-    function rewriteLinkFacebook(link){
+    function rwFacebook(link){
         if (/referrer_log/i.test(link.onclick)){
             link.removeAttribute('onclick');
             link.removeAttribute('onmouseover');
         }
-        rewriteLinkSimple(link);
+        rwSimple(link);
     }
     // google special
-    function rewriteLinkGoogle(link){
+    function rwGoogle(link){
         if (link.hasAttribute('onmousedown')){
             link.removeAttribute('onmousedown');
         }
@@ -127,22 +127,22 @@
     // determine anchors, functions and listeners
     (function ()
     {
-        rewriteLink = rewriteLinkSimple;
-        rewriteAll = rewriteAllLinksSimple;
+        rwLink = rwSimple;
+        rwAll = rwaSimple;
 
         var loc = window.location.hostname;
         if (/google/i.test(loc)) {
-            rewriteLink = rewriteLinkGoogle;
+            rwLink = rwGoogle;
         }
         if (/facebook/i.test(loc)) {
             anchor = 'u=';
             after = '&h=';
-            rewriteLink = rewriteLinkFacebook;
+            rwLink = rwFacebook;
         }
         else if (/youtube/i.test(loc)) {
             anchor = 'redirect?q=';
             after = '&redir_token=';
-            rewriteLink = rewriteLinkYoutube;
+            rwLink = rwYoutube;
         }
         else if (/vk/i.test(loc)) {
             anchor = 'to=';
@@ -161,23 +161,23 @@
         else if (/steam/i.test(loc))
             anchor = 'url=';
         else if (/twitter/i.test(loc)){
-            rewriteLink = rewriteLinkTwitter;
-            rewriteAll = rewriteAllLinksTwitter;
+            rwLink = rwTwitter;
+            rwAll = rwaTwitter;
         }
         else if (/(kat|kickass)/i.test(loc))
         {
             anchor = 'confirm/url/';
-            rewriteLink = rewriteLinkKickass;
+            rwLink = rwKickass;
         }
 
         document.addEventListener('DOMNodeInserted', function(event){
             var node = event.target;
             if (node instanceof HTMLAnchorElement)
-                rewriteLink(node);
+                rwLink(node);
             var links = node.getElementsByTagName('a');
             for (var i = 0; i < links.length; ++i)
-                rewriteLink(links[i]);
+                rwLink(links[i]);
         }, false);
     })();
-    rewriteAll();
+    rwAll();
 })();
