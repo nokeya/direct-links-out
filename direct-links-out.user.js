@@ -13,6 +13,19 @@
 // @include     *://google.*
 // @include     *://www.google.*
 // @include     *://encrypted.google.*
+//yandex
+// @match       *://yandex.ru/*
+// @match       *://yandex.ua/*
+// @match       *://yandex.by/*
+// @match       *://yandex.kz/*
+// @match       *://yandex.com.tr/*
+// @match       *://yandex.com/*
+// @match       *://*.yandex.ru/*
+// @match       *://*.yandex.ua/*
+// @match       *://*.yandex.by/*
+// @match       *://*.yandex.kz/*
+// @match       *://*.yandex.com.tr/*
+// @match       *://*.yandex.com/*
 //youtube
 // @match       *://youtube.com/*
 // @match       *://*.youtube.com/*
@@ -118,7 +131,7 @@
         rwSimple(link);
     }
     // google special
-    function rwGoogle(link){
+    function rwSearchEngine(link){
         if (link.hasAttribute('onmousedown')){
             link.removeAttribute('onmousedown');
         }
@@ -131,10 +144,10 @@
         rwAll = rwaSimple;
 
         var loc = window.location.hostname;
-        if (/google/i.test(loc)) {
-            rwLink = rwGoogle;
+        if (/google|yandex/i.test(loc)) {
+            rwLink = rwSearchEngine;
         }
-        if (/facebook/i.test(loc)) {
+        else if (/facebook/i.test(loc)) {
             anchor = 'u=';
             after = '&h=';
             rwLink = rwFacebook;
