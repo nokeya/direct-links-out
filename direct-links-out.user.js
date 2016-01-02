@@ -93,7 +93,6 @@
         for (var i = 0; i < links.length; ++i)
             rwLink(links[i]);
     }
-
     // twitter special
     function rwTwitter(link){
         if (link.hasAttribute('data-expanded-url')){
@@ -106,7 +105,6 @@
         for (var i = 0; i < links.length; ++i)
             rwLink(links[i]);
     }
-
     // kickass special
     function rwKickass(link){
         var ndx = link.href.indexOf(anchor);
@@ -121,7 +119,6 @@
             link.setAttribute('data-redirect-href-updated', 'true');
         rwSimple(link);
     }
-
     // facebook special
     function rwFacebook(link){
         if (/referrer_log/i.test(link.onclick)){
@@ -131,10 +128,25 @@
         rwSimple(link);
     }
     // google special
-    function rwSearchEngine(link){
-        if (link.hasAttribute('onmousedown')){
+    function rwGoogle(link){
+        // main search
+        if (link.hasAttribute('onmousedown'))
             link.removeAttribute('onmousedown');
+        // images
+        if (link.hasAttribute('jsaction')){
+           var tmp = link.getAttribute('jsaction');
+           if (tmp)
+            link.setAttribute('jsaction', tmp.replace(/(mousedown:irc.rl|keydown:irc.rlk)/g,''));
         }
+    }
+
+    // yandex special
+    function rwYandex(link){
+        // main search
+        if (link.hasAttribute('onmousedown'))
+            link.removeAttribute('onmousedown');
+        // images
+        //TODO
     }
 
     // determine anchors, functions and listeners
@@ -144,8 +156,11 @@
         rwAll = rwaSimple;
 
         var loc = window.location.hostname;
-        if (/google|yandex/i.test(loc)) {
-            rwLink = rwSearchEngine;
+        if (/google/i.test(loc)) {
+            rwLink = rwGoogle;
+        }
+        if (/yandex/i.test(loc)) {
+            rwLink = rwYandex;
         }
         else if (/facebook/i.test(loc)) {
             anchor = 'u=';
@@ -177,8 +192,7 @@
             rwLink = rwTwitter;
             rwAll = rwaTwitter;
         }
-        else if (/(kat|kickass)/i.test(loc))
-        {
+        else if (/(kat|kickass)/i.test(loc)){
             anchor = 'confirm/url/';
             rwLink = rwKickass;
         }
