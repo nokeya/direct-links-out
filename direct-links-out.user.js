@@ -66,6 +66,8 @@
 // @match       *://*.kickassto.co/*
 // @match       *://*.katproxy.is/*
 // @match       *://*.thekat.tv/*
+//AMO
+// @match       *://addons.mozilla.org/*
 // ==/UserScript==
 (function() {
     // anchors and functions
@@ -93,7 +95,7 @@
         for (var i = 0; i < links.length; ++i)
             rwLink(links[i]);
     }
-    // twitter special
+    // twitter
     function rwTwitter(link){
         if (link.hasAttribute('data-expanded-url')){
             link.href = link.getAttribute('data-expanded-url');
@@ -105,7 +107,7 @@
         for (var i = 0; i < links.length; ++i)
             rwLink(links[i]);
     }
-    // kickass special
+    // kickass
     function rwKickass(link){
         var ndx = link.href.indexOf(anchor);
         if (ndx != -1){
@@ -113,13 +115,13 @@
             link.className = '';
         }
     }
-    // youtube special
+    // youtube
     function rwYoutube(link){
         if (/redirect/i.test(link.className))
             link.setAttribute('data-redirect-href-updated', 'true');
         rwSimple(link);
     }
-    // facebook special
+    // facebook
     function rwFacebook(link){
         if (/referrer_log/i.test(link.onclick)){
             link.removeAttribute('onclick');
@@ -127,7 +129,7 @@
         }
         rwSimple(link);
     }
-    // google special
+    // google
     function rwGoogle(link){
         // main search
         if (link.hasAttribute('onmousedown'))
@@ -140,13 +142,17 @@
         }
     }
 
-    // yandex special
+    // yandex
     function rwYandex(link){
         // main search
         if (link.hasAttribute('onmousedown'))
             link.removeAttribute('onmousedown');
         // images
         //TODO
+    }
+    //mozilla addons store
+    function rwAMO(link){
+
     }
 
     // determine anchors, functions and listeners
@@ -156,12 +162,10 @@
         rwAll = rwaSimple;
 
         var loc = window.location.hostname;
-        if (/google/i.test(loc)) {
+        if (/google/i.test(loc))
             rwLink = rwGoogle;
-        }
-        if (/yandex/i.test(loc)) {
+        if (/yandex/i.test(loc))
             rwLink = rwYandex;
-        }
         else if (/facebook/i.test(loc)) {
             anchor = 'u=';
             after = '&h=';
@@ -196,6 +200,8 @@
             anchor = 'confirm/url/';
             rwLink = rwKickass;
         }
+        else if (/mozilla/i.test(loc))
+            rwLink = rwAMO;
 
         document.addEventListener('DOMNodeInserted', function(event){
             var node = event.target;
