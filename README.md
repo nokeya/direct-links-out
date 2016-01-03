@@ -21,3 +21,4 @@ __Install (GreasyFork):__ https://greasyfork.org/ru/scripts/15857-direct-links-o
 - steamcommunity.com
 - 4pda.ru
 - kat.cr(kickass torrents) (with mirrors)
+- addons.mozilla.org
