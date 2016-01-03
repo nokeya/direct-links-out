@@ -5,7 +5,7 @@ Userscript that removes all this "You are leaving our site" and other redirectio
 - Faster surfing
 - Pure JavaScript
 
-__Install (OpenUserJS):__ https://openuserjs.org/scripts/nokeya/Direct_links_out
+__Install (OpenUserJS):__ https://openuserjs.org/scripts/nokeya/Direct_links_out  
 __Install (GreasyFork):__ https://greasyfork.org/ru/scripts/15857-direct-links-out
 
 # Currently supported (with subdomains)
