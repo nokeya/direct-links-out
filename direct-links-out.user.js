@@ -68,6 +68,9 @@
 // @match       *://*.thekat.tv/*
 //AMO
 // @match       *://addons.mozilla.org/*
+//pixiv
+// @match       *://pixiv.net/*
+// @match       *://*.pixiv.net/*
 // ==/UserScript==
 (function() {
     // anchors and functions
@@ -207,6 +210,8 @@
         }
         else if (/mozilla/i.test(loc))
             rwLink = rwAMO;
+        else if (/pixiv/i.test(loc))
+            anchor = 'jump.php?';
 
         document.addEventListener('DOMNodeInserted', function(event){
             var node = event.target;

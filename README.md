@@ -22,3 +22,4 @@ __Install (GreasyFork):__ https://greasyfork.org/ru/scripts/15857-direct-links-o
 - 4pda.ru
 - kat.cr(kickass torrents) (with mirrors)
 - addons.mozilla.org
+- pixiv.net
