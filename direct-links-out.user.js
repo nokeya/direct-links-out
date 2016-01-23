@@ -84,12 +84,13 @@
         if (anchor){
             var ndx = link.href.indexOf(anchor);
             if (ndx != -1){
-                link.href = unescape(link.href.substring(ndx + anchor.length));
+                var newlink = link.href.substring(ndx + anchor.length);
                 if (after){
-                    ndx = link.href.indexOf(after);
+                    ndx = newlink.indexOf(after);
                     if (ndx != -1)
-                        link.href = link.href.substring(0, ndx);
+                        newlink = newlink.substring(0, ndx);
                 }
+                link.href = unescape(newlink);
             }
         }
     }
