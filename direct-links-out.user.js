@@ -7,7 +7,7 @@
 // @author      nokeya
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
-// @version     2.9
+// @version     2.10
 // @grant       none
 //google
 // @include     *://google.*
