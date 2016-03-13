@@ -71,6 +71,9 @@
 //pixiv
 // @match       *://pixiv.net/*
 // @match       *://*.pixiv.net/*
+//tumblr
+// @match       *://tumblr.com/*
+// @match       *://*.tumblr.com/*
 // ==/UserScript==
 (function() {
     // anchors and functions
@@ -78,6 +81,7 @@
     var after;
     var rwLink = function(){};
     var rwAll = function(){};
+    var retTrue = function() { return true; }; //dummy function to always return true
 
     // simple rewrite link -  based on anchors
     function rwSimple(link){
@@ -135,6 +139,12 @@
     }
     // google
     function rwGoogle(link){
+        // replace global rwt script
+        if (window.rwt && window.rwt != retTrue){
+            delete window.rwt;
+            Object.defineProperty(window, 'rwt', { value: retTrue, writable: false });
+        }
+
         // main search
         if (link.hasAttribute('onmousedown'))
             link.removeAttribute('onmousedown');
@@ -213,6 +223,11 @@
             rwLink = rwAMO;
         else if (/pixiv/i.test(loc))
             anchor = 'jump.php?';
+        else if (/tumblr/i.test(loc))
+        {
+            anchor = "redirect?z=";
+            after = "&t=";
+        }
 
         document.addEventListener('DOMNodeInserted', function(event){
             var node = event.target;
