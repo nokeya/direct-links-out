@@ -74,6 +74,10 @@
 //tumblr
 // @match       *://tumblr.com/*
 // @match       *://*.tumblr.com/*
+//danieldefo
+// @match       *://danieldefo.ru/*
+// @match       *://*.danieldefo.ru/*
+
 // ==/UserScript==
 (function() {
     // anchors and functions
@@ -174,6 +178,12 @@
         }
     }
 
+    // daniueldefo
+    function rwDanielDefo(link){
+        if (link.hasAttribute('data-proxy-href'))
+            link.removeAttribute('data-proxy-href');
+    }
+
     // determine anchors, functions and listeners
     (function ()
     {
@@ -228,6 +238,8 @@
             anchor = "redirect?z=";
             after = "&t=";
         }
+        else if (/danieldefo/i.test(loc))
+            rwLink = rwDanielDefo;
 
         document.addEventListener('DOMNodeInserted', function(event){
             var node = event.target;
