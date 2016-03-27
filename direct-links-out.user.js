@@ -193,51 +193,50 @@
         var loc = window.location.hostname;
         if (/google/i.test(loc))
             rwLink = rwGoogle;
-        if (/yandex/i.test(loc))
-            rwLink = rwYandex;
-        else if (/facebook/i.test(loc)) {
-            anchor = 'u=';
-            after = '&h=';
-            rwLink = rwFacebook;
-        }
-        else if (/youtube/i.test(loc)) {
+        else if (/youtube/i.test(loc)){
             anchor = 'redirect?q=';
             after = '&redir_token=';
             rwLink = rwYoutube;
         }
-        else if (/vk/i.test(loc)) {
-            anchor = 'to=';
-            after = '&post=';
+        else if (/facebook/i.test(loc)){
+            anchor = 'u=';
+            after = '&h=';
+            rwLink = rwFacebook;
         }
-        else if (/ok/i.test(loc)) {
-            anchor = 'st.link=';
-            after = '&st.name=';
-        }
-        else if (/4pda/i.test(loc))
-            anchor = 'go/?u=';
-        else if (/deviantart/i.test(loc))
-            anchor = 'outgoing?';
-        else if (/reactor/i.test(loc))
-            anchor = 'url=';
-        else if (/steam/i.test(loc))
-            anchor = 'url=';
         else if (/twitter/i.test(loc)){
             rwLink = rwTwitter;
             rwAll = rwaTwitter;
         }
+        else if (/yandex/i.test(loc))
+            rwLink = rwYandex;
+        else if (/vk/i.test(loc)){
+            anchor = 'to=';
+            after = '&post=';
+        }
+        else if (/ok/i.test(loc)){
+            anchor = 'st.link=';
+            after = '&st.name=';
+        }
+        else if (/pixiv/i.test(loc))
+            anchor = 'jump.php?';
+        else if (/tumblr/i.test(loc)){
+            anchor = "redirect?z=";
+            after = "&t=";
+        }
+        else if (/deviantart/i.test(loc))
+            anchor = 'outgoing?';
+        else if (/steam/i.test(loc))
+            anchor = 'url=';
         else if (/(kat|kickass)/i.test(loc)){
             anchor = 'confirm/url/';
             rwLink = rwKickass;
         }
+        else if (/4pda/i.test(loc))
+            anchor = 'go/?u=';
+        else if (/reactor/i.test(loc))
+            anchor = 'url=';
         else if (/mozilla/i.test(loc))
             rwLink = rwAMO;
-        else if (/pixiv/i.test(loc))
-            anchor = 'jump.php?';
-        else if (/tumblr/i.test(loc))
-        {
-            anchor = "redirect?z=";
-            after = "&t=";
-        }
         else if (/danieldefo/i.test(loc))
             rwLink = rwDanielDefo;
 
