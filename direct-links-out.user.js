@@ -77,6 +77,9 @@
 //danieldefo
 // @match       *://danieldefo.ru/*
 // @match       *://*.danieldefo.ru/*
+//yaplakal
+// @match       *://yaplakal.com/*
+// @match       *://*.yaplakal.com/*
 
 // ==/UserScript==
 (function() {
@@ -239,6 +242,8 @@
             rwLink = rwAMO;
         else if (/danieldefo/i.test(loc))
             rwLink = rwDanielDefo;
+        else if (/yaplakal/i.test(loc))
+            anchor = "go/?";
 
         document.addEventListener('DOMNodeInserted', function(event){
             var node = event.target;

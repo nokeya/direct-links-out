@@ -25,3 +25,4 @@ __Install (GreasyFork):__ https://greasyfork.org/ru/scripts/15857-direct-links-o
 - pixiv.net
 - tumblr.com
 - danieldefo.ru
+- yaplakal.com
