@@ -16,6 +16,7 @@ __Install (GreasyFork):__ https://greasyfork.org/ru/scripts/15857-direct-links-o
 - twitter.com
 - vk.com
 - ok.ru
+- soundcloud.com
 - deviantart.com
 - joyreactor.cc / joyreactor.com
 - steamcommunity.com

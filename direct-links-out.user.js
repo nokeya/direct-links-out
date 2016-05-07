@@ -7,7 +7,7 @@
 // @author      nokeya
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
-// @version     2.12
+// @version     2.13
 // @grant       none
 //google
 // @include     *://google.*
@@ -80,6 +80,9 @@
 //yaplakal
 // @match       *://yaplakal.com/*
 // @match       *://*.yaplakal.com/*
+//soundcloud
+// @match       *://soundcloud.com/*
+// @match       *://*.soundcloud.com/*
 
 // ==/UserScript==
 (function() {
@@ -234,6 +237,8 @@
             anchor = 'confirm/url/';
             rwLink = rwKickass;
         }
+        else if (/soundcloud/i.test(loc))
+            anchor = "exit.sc/?url=";
         else if (/4pda/i.test(loc))
             anchor = 'go/?u=';
         else if (/reactor/i.test(loc))
