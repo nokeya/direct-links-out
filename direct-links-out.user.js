@@ -239,8 +239,10 @@
         }
         else if (/soundcloud/i.test(loc))
             anchor = "exit.sc/?url=";
-        else if (/4pda/i.test(loc))
+        else if (/4pda/i.test(loc)){
             anchor = 'go/?u=';
+            after = '&e=';
+        }
         else if (/reactor/i.test(loc))
             anchor = 'url=';
         else if (/mozilla/i.test(loc))
