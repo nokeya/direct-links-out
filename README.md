@@ -19,6 +19,7 @@ __Install (Github raw):__ https://github.com/nokeya/direct-links-out/raw/master/
 - ok.ru
 - soundcloud.com
 - deviantart.com
+- upwork.com
 - joyreactor.cc / joyreactor.com
 - steamcommunity.com
 - 4pda.ru

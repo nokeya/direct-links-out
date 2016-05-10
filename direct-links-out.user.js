@@ -7,7 +7,7 @@
 // @author      nokeya
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
-// @version     2.13
+// @version     2.14
 // @grant       none
 //google
 // @include     *://google.*
@@ -83,6 +83,9 @@
 //soundcloud
 // @match       *://soundcloud.com/*
 // @match       *://*.soundcloud.com/*
+//upwork
+// @match       *://upwork.com/*
+// @match       *://*.upwork.com/*
 
 // ==/UserScript==
 (function() {
@@ -239,6 +242,8 @@
         }
         else if (/soundcloud/i.test(loc))
             anchor = "exit.sc/?url=";
+        else if (/upwork/i.test(loc))
+            anchor = 'leaving-odesk?ref=';
         else if (/4pda/i.test(loc)){
             anchor = 'go/?u=';
             after = '&e=';
