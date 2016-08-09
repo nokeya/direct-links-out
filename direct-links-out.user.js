@@ -86,6 +86,9 @@
 //upwork
 // @match       *://upwork.com/*
 // @match       *://*.upwork.com/*
+//picarto
+// @match       *://picarto.tv/*
+// @match       *://*.picarto.tv/*
 
 // ==/UserScript==
 (function() {
@@ -256,6 +259,10 @@
             rwLink = rwDanielDefo;
         else if (/yaplakal/i.test(loc))
             anchor = "go/?";
+        else if (/picarto/i.test(loc)){
+            anchor = "referrer?go=";
+            after = "&ref=";
+        }
 
         document.addEventListener('DOMNodeInserted', function(event){
             var node = event.target;
