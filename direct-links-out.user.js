@@ -240,7 +240,7 @@
         }
         else if (/deviantart/i.test(loc))
             anchor = 'outgoing?';
-        else if (/steam/i.test(loc))
+        else if (/(steam|reactor)/i.test(loc))
             anchor = 'url=';
         else if (/(kat|kickass)/i.test(loc)){
             anchor = 'confirm/url/';
@@ -254,8 +254,6 @@
             anchor = 'go/?u=';
             after = '&e=';
         }
-        else if (/reactor/i.test(loc))
-            anchor = 'url=';
         else if (/mozilla/i.test(loc))
             rwLink = rwAMO;
         else if (/danieldefo/i.test(loc))
