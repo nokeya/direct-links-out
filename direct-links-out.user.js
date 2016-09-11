@@ -7,7 +7,7 @@
 // @author      nokeya
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
-// @version     2.15
+// @version     2.16
 // @grant       none
 //google
 // @include     *://google.*
@@ -89,6 +89,9 @@
 //picarto
 // @match       *://picarto.tv/*
 // @match       *://*.picarto.tv/*
+//taker
+// @match       *://taker.im/*
+// @match       *://*.taker.im/*
 
 // ==/UserScript==
 (function() {
@@ -263,6 +266,8 @@
             anchor = "referrer?go=";
             after = "&ref=";
         }
+        else if (/taker/i.test(loc))
+            anchor = "phpBB2/goto/";
 
         document.addEventListener('DOMNodeInserted', function(event){
             if (!event || !event.target || !(event.target instanceof HTMLElement))
