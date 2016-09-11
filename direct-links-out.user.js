@@ -265,6 +265,8 @@
         }
 
         document.addEventListener('DOMNodeInserted', function(event){
+            if (!event || !event.target || !(event.target instanceof HTMLElement))
+                return;
             var node = event.target;
             if (node instanceof HTMLAnchorElement)
                 rwLink(node);
