@@ -30,3 +30,4 @@ __Install (Github raw):__ https://github.com/nokeya/direct-links-out/raw/master/
 - danieldefo.ru
 - yaplakal.com
 - picarto.tv
+- taker.im
