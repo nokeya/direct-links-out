@@ -187,11 +187,11 @@
     }
     //mozilla addons store
     function rwAMO(link){
-        if (/outgoing.mozilla.org/i.test(link.href)){
+        if (/outgoing.prod.mozaws.net/i.test(link.href)){
             var tmp = link.href;
             link.href = "#";
             // we have to fight mozilla's replacing of direct redirect string with jquery events
-            setTimeout(function(){ link.href = unescape(tmp.replace(/(http|https):\/\/outgoing.mozilla.org\/v1\/[0-9a-zA-Z]+\//i,'')); }, 100);
+            setTimeout(function(){ link.href = unescape(tmp.replace(/(http|https):\/\/outgoing.prod.mozaws.net\/v1\/[0-9a-zA-Z]+\//i,'')); }, 100);
         }
     }
 
