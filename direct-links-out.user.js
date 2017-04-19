@@ -29,6 +29,8 @@
 //youtube
 // @match       *://youtube.com/*
 // @match       *://*.youtube.com/*
+//wikimapia
+// @match       *://wikimapia.org/*
 //deviantart
 // @match       *://deviantart.com/*
 // @match       *://*.deviantart.com/*
@@ -260,6 +262,8 @@
             rwLink = rwDanielDefo;
         else if (/yaplakal/i.test(loc))
             anchor = "go/?";
+        else if (/wikimapia.org/i.test(loc))
+            anchor = 'external_link?url=';
         else if (/picarto/i.test(loc)){
             anchor = "referrer?go=";
             after = "&ref=";
