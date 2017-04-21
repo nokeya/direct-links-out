@@ -183,7 +183,9 @@
         if (link.hasAttribute('onmousedown'))
             link.removeAttribute('onmousedown');
         // images
-        //TODO
+        anchor = '&img_url=';
+        after = '&pos=';
+        rwSimple(link);
     }
     //mozilla addons store
     function rwAMO(link){
