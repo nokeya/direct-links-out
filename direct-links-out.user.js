@@ -96,6 +96,8 @@
 // @match       *://*.taker.im/*
 //forumavia
 // @match       *://*.forumavia.ru/*
+//slack
+// @match       *://*.slack.com/*
 
 // ==/UserScript==
 (function() {
@@ -205,6 +207,12 @@
             link.removeAttribute('data-proxy-href');
     }
 
+    // slack
+    function rwSlack(link){
+        link.removeAttribute('onclick');
+        link.removeAttribute('onmouseover');
+    }
+
     // determine anchors, functions and listeners
     (function ()
     {
@@ -276,6 +284,8 @@
         }
         else if (/taker/i.test(loc))
             anchor = "phpBB2/goto/";
+        else if (/slack/i.test(loc))
+            rwLink = rwSlack;
 
         document.addEventListener('DOMNodeInserted', function(event){
             if (!event || !event.target || !(event.target instanceof HTMLElement))
