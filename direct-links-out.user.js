@@ -94,6 +94,8 @@
 //taker
 // @match       *://taker.im/*
 // @match       *://*.taker.im/*
+//forumavia
+// @match       *://*.forumavia.ru/*
 
 // ==/UserScript==
 (function() {
@@ -266,6 +268,8 @@
             anchor = "go/?";
         else if (/wikimapia.org/i.test(loc))
             anchor = 'external_link?url=';
+        else if (/forumavia.ru/i.test(loc))
+            anchor = '/e/?l=';
         else if (/picarto/i.test(loc)){
             anchor = "referrer?go=";
             after = "&ref=";
