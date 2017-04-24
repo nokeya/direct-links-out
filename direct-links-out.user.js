@@ -98,6 +98,9 @@
 // @match       *://*.forumavia.ru/*
 //slack
 // @match       *://*.slack.com/*
+//instagram
+// @match       *://instagram.com/*
+// @match       *://*.instagram.com/*
 
 // ==/UserScript==
 (function() {
@@ -231,6 +234,10 @@
             anchor = 'u=';
             after = '&h=';
             rwLink = rwFacebook;
+        }
+        else if (/instagram/i.test(loc)){
+            anchor = 'u=';
+            after = '&e=';
         }
         else if (/twitter/i.test(loc)){
             rwLink = rwTwitter;
