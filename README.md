@@ -34,4 +34,4 @@ __Install (Github raw):__ https://github.com/nokeya/direct-links-out/raw/master/
 - slack.com
 - forumavia.ru
 - instagram.com
-
+- wikimapia.org
