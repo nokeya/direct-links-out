@@ -131,6 +131,29 @@
         for (var i = 0; i < links.length; ++i)
             rwLink(links[i]);
     }
+    // vk
+    function rwVK(link){
+        if (link.className === 'page_media_link_thumb')
+        {
+            var parent = link.parentNode;
+            link.href = parent.getAttribute("href");
+            parent.removeAttribute('href');
+            parent.removeAttribute('onclick');
+            link.removeAttribute('onclick');
+        }
+
+        var ndx = link.href.indexOf(anchor);
+        if (ndx != -1){
+            var newlink = link.href.substring(ndx + anchor.length);
+            var afterArr = ['&post=', '&el=snippet', '&cc_key='];
+            for (var i = 0; i < afterArr.length; ++i){
+                ndx = newlink.indexOf(afterArr[i]);
+                if (ndx != -1)
+                    newlink = newlink.substring(0, ndx);
+            }
+            link.href = unescape(newlink);
+        }
+    }
     // twitter
     function rwTwitter(link){
         if (link.hasAttribute('data-expanded-url')){
@@ -247,7 +270,7 @@
             rwLink = rwYandex;
         else if (/vk/i.test(loc)){
             anchor = 'to=';
-            after = '&post=';
+            rwLink = rwVK;
         }
         else if (/ok/i.test(loc)){
             anchor = 'st.link=';
