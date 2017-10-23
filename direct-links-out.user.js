@@ -53,6 +53,8 @@
 //fb
 // @match       *://facebook.com/*
 // @match       *://*.facebook.com/*
+// @match       *://messenger.com/*
+// @match       *://*.messenger.com/*
 //twitter
 // @match       *://twitter.com/*
 // @match       *://*.twitter.com/*
@@ -253,7 +255,7 @@
             after = '&redir_token=';
             rwLink = rwYoutube;
         }
-        else if (/facebook/i.test(loc)){
+        else if (/(facebook|messenger)/i.test(loc)){
             anchor = 'u=';
             after = '&h=';
             rwLink = rwFacebook;
