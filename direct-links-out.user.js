@@ -276,8 +276,9 @@
             anchor = 'st.link=';
             after = '&st.name=';
         }
-        else if (/pixiv/i.test(loc))
-            anchor = 'jump.php?';
+        else if (/pixiv/i.test(loc)){
+            anchor = 'url=';
+        }
         else if (/tumblr/i.test(loc)){
             anchor = "redirect?z=";
             after = "&t=";
