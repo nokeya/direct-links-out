@@ -181,12 +181,36 @@
         rwSimple(link);
     }
     // facebook
-    function rwFacebook(link){
-        if (/referrer_log/i.test(link.onclick)){
-            link.removeAttribute('onclick');
-            link.removeAttribute('onmouseover');
+    function rwFacebook(old){
+        // NOTE something in fb undoes the changes from various event handlers,
+        // and it gets registered on every <a/> tag, therefore it's not enough to
+        // just create an entirely new DOM node and replace it, we need to do
+        // that from a timer, after the page has finished loading completely.
+        if (/l.php\?u=/i.test(old.href)) {
+            rwSimple(old);
+            const url = new URL(old.href);
+            url.searchParams.delete('fbclid');
+
+            const replacer = function () {
+                //console.info("creating replacement for url: ", url.href, " innerHTML: ", old.innerHTML);
+                const mine = document.createElement("a");
+                mine.href = url.href;
+                mine.setAttribute('class', old.getAttribute('class'));
+                mine.target = "_blank";
+                mine.rel = "noopener noreferrer";
+                while (old.hasChildNodes())
+                    mine.appendChild(old.removeChild(old.firstChild))
+                // undo the ... abbreviations in the URL that screws up copy-pasting post contents
+                if (mine.childNodes.length == 1 && mine.firstChild.nodeType == 3)
+                    mine.firstChild.textContent = url.href;
+                old.replaceWith(mine);
+                old = mine;
+            }
+            setTimeout(replacer, 1000);
+            setTimeout(replacer, 3000);
+            setTimeout(replacer, 5000);
+            setTimeout(replacer, 7000);
         }
-        rwSimple(link);
     }
     // google
     function rwGoogle(link){
@@ -254,7 +278,7 @@
             rwLink = rwYoutube;
         }
         else if (/facebook/i.test(loc)){
-            anchor = 'u=';
+            anchor = 'l.php?u=';
             after = '&h=';
             rwLink = rwFacebook;
         }
