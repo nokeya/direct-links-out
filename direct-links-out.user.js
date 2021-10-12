@@ -7,7 +7,7 @@
 // @author      nokeya
 // @update      https://github.com/nokeya/direct-links-out/raw/master/direct-links-out.user.js
 // @icon        https://raw.githubusercontent.com/nokeya/direct-links-out/master/icon.png
-// @version     2.19
+// @version     2.20
 // @grant       none
 //google
 // @include     *://google.*
@@ -59,6 +59,8 @@
 //4pda
 // @match       *://4pda.ru/*
 // @match       *://*.4pda.ru/*
+// @match       *://4pda.to/*
+// @match       *://*.4pda.to/*
 //kickass
 // @match       *://kat.cr/*
 // @match       *://kickassto.co/*
@@ -238,6 +240,11 @@
         link.removeAttribute('onclick');
         link.removeAttribute('onmouseover');
     }
+  
+    function rw4pda(link) {
+      link.setAttribute('data-notrack', 'true')
+      rwSimple(link)
+    }
 
     // determine anchors, functions and listeners
     (function ()
@@ -297,6 +304,7 @@
         else if (/4pda/i.test(loc)){
             anchor = 'go/?u=';
             after = '&e=';
+            rwLink = rw4pda;
         }
         else if (/mozilla/i.test(loc))
             rwLink = rwAMO;
